@@ -6,6 +6,7 @@
 # same event(s). The TrailDiscover rules carry richer metadata (MITRE ATT&CK, real-world
 # incidents, security implications), so we load those instead and skip the originals here.
 
+38e7f511-3f74-41d4-836e-f57dfa18eead # SSM SendCommand [sigma] -- replaced by aws_cloudtrail_ssm_send_command.yml; null does not match absent errorCode in sigma-rust
 07330162-dba1-4746-8121-a9647d49d297 # AWS Config Disabling Channel/Recorder [sigma] -- superseded by TrailDiscover rule(s) for DeleteDeliveryChannel, StopConfigurationRecorder
 25cb1ba1-8a19-4a23-a198-d252664c8cef # AWS EFS Fileshare Modified or Deleted [sigma] -- superseded by TrailDiscover rule(s) for DeleteFileSystem
 6a7ba45c-63d8-473e-9736-2eaabff79964 # AWS EFS Fileshare Mount Modified or Deleted [sigma] -- superseded by TrailDiscover rule(s) for DeleteMountTarget

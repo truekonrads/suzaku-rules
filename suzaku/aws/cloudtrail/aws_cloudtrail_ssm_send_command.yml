@@ -1,0 +1,34 @@
+title: AWS SSM SendCommand API Accepted
+id: bce9a22b-840f-4cb4-a403-1ee726a96710
+status: experimental
+description: |
+    Detects accepted Systems Manager Run Command requests, including CloudTrail
+    events that omit errorCode on success. API acceptance does not establish
+    successful execution on a managed node or malicious intent.
+references:
+    - https://docs.aws.amazon.com/systems-manager/latest/APIReference/API_SendCommand.html
+    - https://github.com/SigmaHQ/sigma/blob/master/rules/cloud/aws/cloudtrail/aws_cloudtrail_ssm_malicious_usage.yml
+author: truekonrads
+date: 2026-10-30
+tags:
+    - attack.execution
+    - attack.t1651
+logsource:
+    product: aws
+    service: cloudtrail
+detection:
+    selection_event:
+        eventName: SendCommand
+        eventSource: ssm.amazonaws.com
+    selection_status_missing:
+        errorCode|exists: false
+    selection_status_null:
+        errorCode: null
+    selection_status_success:
+        errorCode: Success
+    error_message:
+        errorMessage|exists: true
+    condition: selection_event and 1 of selection_status_* and not error_message
+falsepositives:
+    - Legitimate administration and automation using SSM Run Command.
+level: high
